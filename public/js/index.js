@@ -21,6 +21,12 @@ $(document).ready(() => {
     context.stroke();
     context.closePath();
     
+    let emitToServer = {
+      x1, y1, x2, y2
+    }
+    
+    socket.emit('draw', emitToServer);
+    
   }
   
   canvas.addEventListener('mousedown', onMouseDown);
