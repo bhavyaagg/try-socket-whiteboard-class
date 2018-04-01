@@ -11,6 +11,11 @@ const server = http.Server(app)
 const socketIO = require('socket.io');
 const io = socketIO(server);
 
+io.on('connection', (socket) => {
+  socket.on('draw', (data) => {
+    socket.broadcast.emit('drawNew', data);
+  })
+})
 
 app.use(express.static(__dirname + '/public'));
 
