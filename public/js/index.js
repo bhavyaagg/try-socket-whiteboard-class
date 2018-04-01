@@ -14,7 +14,7 @@ $(document).ready(() => {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
   
-  function drawLine(x1, y1, x2, y2) {
+  function drawLine(x1, y1, x2, y2, emit = false) {
     
     context.beginPath();
     context.lineWidth = 2;
@@ -23,6 +23,9 @@ $(document).ready(() => {
     context.stroke();
     context.closePath();
     
+    if (!emit) {
+      return;
+    }
     let emitToServer = {
       x1, y1, x2, y2
     }
@@ -46,7 +49,7 @@ $(document).ready(() => {
     if (!drawing) {
       return;
     }
-    drawLine(current.x, current.y, e.clientX, e.clientY);
+    drawLine(current.x, current.y, e.clientX, e.clientY, true);
     drawing = false;
   }
   
@@ -54,7 +57,7 @@ $(document).ready(() => {
     if (!drawing) {
       return;
     }
-    drawLine(current.x, current.y, e.clientX, e.clientY);
+    drawLine(current.x, current.y, e.clientX, e.clientY, true);
     current.x = e.clientX;
     current.y = e.clientY;
   }
