@@ -7,6 +7,7 @@ $(document).ready(() => {
   const canvas = document.getElementById('whiteboard');
   const context = canvas.getContext('2d');
   let drawing = false;
+  let current = {};
   
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
@@ -24,17 +25,24 @@ $(document).ready(() => {
   
   drawLine(80, 80, 100, 100);
   
+  canvas.addEventListener('mousedown', onMouseDown);
+  canvas.addEventListener('mouseup', onMouseUp);
+  canvas.addEventListener('mouseout', onMouseUp);
+  canvas.addEventListener('mousemove', onMouseMove);
   
-  // canvas.addEventListener('mousedown', onMouseDown);
-  // canvas.addEventListener('mouseup', onMouseUp);
-  // canvas.addEventListener('mouseout', onMouseUp);
-  // canvas.addEventListener('mousemove', onMouseMove);
-  //
-  //
-  //
-  // function onMouseDown() {
-  //
-  // }
-  //
+  function onMouseDown(e) {
+    drawing = true;
+    current.x = e.clientX;
+    current.y = e.clientY;
+  }
+  
+  function onMouseUp(e) {
+    if (!drawing) {
+      return;
+    }
+    drawLine(current.x, current.y, e.clientX, e.clientY);
+    drawing = false;
+  }
+  
   
 })
