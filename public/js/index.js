@@ -23,8 +23,6 @@ $(document).ready(() => {
     
   }
   
-  drawLine(80, 80, 100, 100);
-  
   canvas.addEventListener('mousedown', onMouseDown);
   canvas.addEventListener('mouseup', onMouseUp);
   canvas.addEventListener('mouseout', onMouseUp);
@@ -42,6 +40,15 @@ $(document).ready(() => {
     }
     drawLine(current.x, current.y, e.clientX, e.clientY);
     drawing = false;
+  }
+  
+  function onMouseMove(e) {
+    if (!drawing) {
+      return;
+    }
+    drawLine(current.x, current.y, e.clientX, e.clientY);
+    current.x = e.clientX;
+    current.y = e.clientY;
   }
   
   
