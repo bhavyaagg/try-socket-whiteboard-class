@@ -4,6 +4,8 @@
 
 $(document).ready(() => {
   const socket = io();
+  socket.on('drawNew', drawNew);
+  
   const canvas = document.getElementById('whiteboard');
   const context = canvas.getContext('2d');
   let drawing = false;
@@ -57,5 +59,8 @@ $(document).ready(() => {
     current.y = e.clientY;
   }
   
+  function drawNew(data) {
+    drawLine(data.x1, data.y1, data.x2, data.y2);
+  }
   
 })
